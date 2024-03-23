@@ -1,0 +1,64 @@
+{
+  "name": "verodolorem",
+  "version": "1.11.2",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "module": "src/index.ts",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/VivianneLind/verodolorem.git"
+  },
+  "author": "RessieKutch",
+  "license": "MIT",
+  "scripts": {
+    "build": "npm run clean && npm run compile && mv ./build/src ./dist && rm -rf ./build",
+    "clean": "rm -rf ./{build,dist}",
+    "compile": "NODE_ENV=production tsc -p .",
+    "format": "npm run lint && npm run prettier && npm run lint",
+    "lint": "tslint -c tslint.json -p tsconfig.json --fix '{src,tests}/**/*.{ts,tsx}'",
+    "pretty": "prettier --write --list-different --parser ${npm_package_prettier_parser} --trailing-comma ${npm_package_prettier_trailingComma} --print-width ${npm_package_prettier_printWidth} '{src,tests}/**/*.ts'",
+    "prepublishOnly": "npm run build",
+    "test": "NODE_ENV=test jest --runInBand"
+  },
+  "dependencies": {
+    "fp-ts": "1.6.2",
+    "io-ts": "1.1.5",
+    "lodash": "4.17.10",
+    "monocle-ts": "1.0.0",
+    "pg": "7.4.3"
+  },
+  "devDependencies": {
+    "@types/jest": "23.1.0",
+    "@types/lodash": "4.14.109",
+    "@types/pg": "7.4.9",
+    "jest": "23.1.0",
+    "pg-connection-string": "2.0.0",
+    "prettier": "1.13.5",
+    "ts-jest": "23.0.1",
+    "ts-node": "7.0.0",
+    "tslint": "5.10.0",
+    "typescript": "3.0.1"
+  },
+  "jest": {
+    "collectCoverage": true,
+    "coverageDirectory": "./coverage",
+    "coveragePathIgnorePatterns": [
+      "<rootDir>/build/",
+      "<rootDir>/dist/",
+      "<rootDir>/node_modules/"
+    ],
+    "moduleFileExtensions": [
+      "ts",
+      "js"
+    ],
+    "transform": {
+      "\\.(ts|tsx)$": "<rootDir>/node_modules/ts-jest/preprocessor.js"
+    },
+    "testRegex": "/tests/.*\\.test\\.ts$"
+  },
+  "prettier": {
+    "parser": "typescript",
+    "printWidth": 100,
+    "trailingComma": "all"
+  }
+}
